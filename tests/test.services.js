@@ -29,8 +29,6 @@ define(function (require) {
                         cueCategoryIds[i] = cueCategories[i].id;
                     }
 
-                    console.log(cueCategoryIds);
-
                     done();
                 });
             });
@@ -97,15 +95,31 @@ define(function (require) {
                     chai.assert.isNull(err, err);
                     chai.assert.isArray(cues);
 
-                    console.log(cues);
+                    var initialNumberOfCues = cues.length;
+                    if (initialNumberOfCues < 2) {
+                        chai.assert(false, 'Can not test `userCueService.put` as we don\'t obtain enough cues ' +
+                            'from the server in the first place');
+                    }
 
-                    done();
+                    var cueIds = [cues[0].id];
+                    userCueService.put(token, cueIds, function (err) {
+                        chai.assert.isNull(err, err);
+
+                        userCueService.get(token, 0, function (err, cues) {
+                            chai.assert.isNull(err, err);
+
+                            for (var i = 0; i < cues.length; i ++) {
+                                if (cueIds.indexOf(cues[i].id) > - 1) {
+                                    chai.assert(false, 'We got a cue from server which we marked as viewed!');
+                                }
+                            }
+
+                            done();
+                        });
+                    });
                 });
             });
         });
-
-
-        console.log(token);
     });
 
 });
