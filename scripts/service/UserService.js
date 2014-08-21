@@ -1,6 +1,6 @@
 'use strict';
 
-define(['config', 'domain/User'], function (config, User) {
+define(['scripts/config', 'scripts/domain/User'], function (config, User) {
     function UserService() {
         if (! (this instanceof UserService)) {
             throw new Error('`this` must be an instance of service.UserService');
@@ -17,7 +17,7 @@ define(['config', 'domain/User'], function (config, User) {
             req.open('POST', baseUrl + '/user-tokens', true);
             req.onreadystatechange = function () {
                 if (4 === req.readyState) {
-                    if (201 === e.target.status) {
+                    if (201 === req.status) {
                         var url = req.getResponseHeader('Location');
                         var re = /([a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12})/;
                         if (null === url.match(re)) {

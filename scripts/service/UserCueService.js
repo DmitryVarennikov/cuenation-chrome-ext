@@ -1,6 +1,6 @@
 'use strict';
 
-define(['config', 'domain/Cue', 'utils/Pageable'], function (config, Cue, Pageable) {
+define(['scripts/config', 'scripts/domain/Cue', 'scripts/utils/Pageable'], function (config, Cue, Pageable) {
     function UserCueService() {
         if (! (this instanceof UserCueService)) {
             throw new Error('`this` must be an instance of service.UserCueService');

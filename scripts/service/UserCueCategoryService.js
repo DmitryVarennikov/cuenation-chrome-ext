@@ -1,6 +1,6 @@
 'use strict';
 
-define(['config', 'domain/CueCategory'], function (config, CueCategory) {
+define(['scripts/config', 'scripts/domain/CueCategory'], function (config, CueCategory) {
     function UserCueCategoryService() {
         if (! (this instanceof UserCueCategoryService)) {
             throw new Error('`this` must be an instance of service.UserCueCategoryService');

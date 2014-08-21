@@ -1,6 +1,16 @@
 'use strict';
 
-require(['service/UserService', 'service/CueCategoryService', 'service/UserCueCategoryService', 'service/UserCueService'],
+require.config({
+    baseUrl: '../',
+    urlArgs: 'bust=' + (new Date()).getTime()
+});
+
+require([
+    'scripts/service/UserService',
+    'scripts/service/CueCategoryService',
+    'scripts/service/UserCueCategoryService',
+    'scripts/service/UserCueService'
+],
     function (UserService, CueCategoryService, UserCueCategoryService, UserCueService) {
         var token = "8c9f8cf4-1689-48ab-bf53-ee071a377f60";
 
@@ -30,7 +40,6 @@ require(['service/UserService', 'service/CueCategoryService', 'service/UserCueCa
 //        userCueCategoryService.get(token, function (err, cueCategories) {
 //            console.log(err, cueCategories);
 //        });
-
 
 
 //    var cueCategoryService = new CueCategoryService();
