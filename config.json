@@ -1,0 +1,9 @@
+{
+    "dev":  {
+        "url": {
+            "subscriptions":         "http://127.0.0.1:8090/subscriptions.json",
+            "subscriptions-updates": "http://127.0.0.1:8090/subscriptions-updates.json"
+        }
+    },
+    "prod": {}
+}

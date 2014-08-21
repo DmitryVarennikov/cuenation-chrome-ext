@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .clear:after {
+            content: " ";
+            display: block;
+            height: 0;
+            clear: both;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        body {
+            background-color: #FDF5EA;
+            font-family: Verdana, Sans-serif;
+        }
+
+        #flash-message {
+            position: absolute;
+            top: 8px;
+            left: 280px;
+            color: #C09853;
+            background-color: #FCF8E3;
+            border: 1px solid #FBEED5;
+            padding: 5px;
+            display: none;
+        }
+
+        #logo {
+            margin: 0 15px;
+        }
+
+        #menu {
+            display: block;
+            padding-left: 15px;
+        }
+
+        #menu li {
+            float: left;
+            list-style: none;
+            background-color: #B7AF9C;
+            border: 1px solid #000;
+            margin-right: 5px;
+        }
+
+        #menu li a {
+            cursor: pointer;
+            display: block;
+            background-color: #807A60;
+            padding: 7px 15px;
+            margin: 1px;
+            color: #EDE8D4;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        #page-content {
+            width: 570px;
+            border: solid 1px #EADDBB;
+            margin: 15px;
+            padding: 5px 5px 5px 25px;
+            background-color: #F7F7EF;
+        }
+
+        #loader {
+            margin: 30px 0 30px 269px;
+        }
+
+        .page-title {
+            color: #807A60;
+            font-size: 20px;
+        }
+
+        #subscriptions-updates {
+            list-style: none;
+            list-style-image: url('images/download.png');
+            padding-left: 0;
+        }
+
+        #subscriptions-updates li {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        #subscriptions-updates a {
+            color: #AAA488;
+        }
+
+        #subscriptions-updates a:hover {
+            color: #807A60;
+        }
+
+        #subscriptions {
+            width: 100%;
+            font-size: 12px;
+        }
+
+        #subscriptions td {
+            padding: 5px 0;
+        }
+
+        #subscriptions tr.odd {
+            background-color: #F2EDDA;
+        }
+
+        #subscriptions tr:hover {
+            background-color: #EADDBB;
+        }
+
+        #subscriptions tr td:first-child {
+            width: 50px;
+            text-align: center;
+        }
+
+        #subscriptions tr td:nth-child(2) {
+            width: 210px;
+        }
+
+        #subscriptions .name {
+            color: #807A60;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        #subscriptions .desc {
+            color: #6E6752;
+            font-size: 11px;
+            font-style: italic;
+        }
+    </style>
+    <script data-main="scripts/main" src="scripts/require.js"></script>
+</head>
+<body>
+
+<div id="flash-message"></div>
+
+<img id="logo" src="images/logo.jpg"/>
+
+<ul id="menu">
+    <li>
+        <a class="landing" href="subscriptions-updates">Updates</a>
+    </li>
+    <li>
+        <a href="subscriptions">My Subscriptions</a>
+    </li>
+</ul>
+
+<div class="clear"></div>
+
+<div id="page-content">
+
+    <!--<h1 class="page-title">My Subscriptions</h1>-->
+
+    <!--<button name="save">Save</button>-->
+
+    <!--<table id="subscriptions" cellpadding="0" cellspacing="0">-->
+    <!--<tr class="odd">-->
+    <!--<td><input type="checkbox" name="subscriptions" value="A State of Sundays"></td>-->
+    <!--<td>-->
+    <!--<img src="http://cuenation.com/thumb.php?image=images/asot/asot.jpg&scale=33&qual=95" width="198"-->
+    <!--height="40">-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--<div class="name">A State of Sundays</div>-->
+    <!--<div class="desc">with Armin van Buuren</div>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td><input type="checkbox" name="subscriptions"></td>-->
+    <!--<td>-->
+    <!--<img src="http://cuenation.com/thumb.php?image=images/asot/asot.jpg&scale=33&qual=95" width="198"-->
+    <!--height="40">-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--<div class="name">A State of Sundays</div>-->
+    <!--<div class="desc">with Armin van Buuren</div>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--<tr class="odd">-->
+    <!--<td><input type="checkbox" name="subscriptions"></td>-->
+    <!--<td>-->
+    <!--<img src="http://cuenation.com/thumb.php?image=images/asot/asot.jpg&scale=33&qual=95" width="198"-->
+    <!--height="40">-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--<div class="name">A State of Sundays</div>-->
+    <!--<div class="desc">with Armin van Buuren</div>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+    <!--<td><input type="checkbox" name="subscriptions"></td>-->
+    <!--<td>-->
+    <!--<img src="http://cuenation.com/thumb.php?image=images/asot/asot.jpg&scale=33&qual=95" width="198"-->
+    <!--height="40">-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--<div class="name">A State of Sundays</div>-->
+    <!--<div class="desc">with Armin van Buuren</div>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--</table>-->
+
+    <!--<button name="save">Save</button>-->
+
+
+    <!--<ul id="subscriptions-updates">-->
+
+    <!--<li><a href="http://cuentation.com">Chris Goss &amp; Tomahawk - Hospital Radio (2013-12-25) (Incl. Metrik and-->
+    <!--S.P.Y-->
+    <!--Live Guestmixes) [Podcast]</a></li>-->
+    <!--<li><a href="http://cuentation.com">Friction - Drum &amp; Bass Show (2013-29-12) (Best Of 2013) [TALiON]</a>-->
+    <!--</li>-->
+    <!--<li><a href="http://cuentation.com">M.Pravda - Live in Motion 173 (2013-12-28) (Best of 2013 Part 1)</a></li>-->
+    <!--<li><a href="http://cuentation.com">Armin van Buuren - AH.FM EOYC 2013 (2013-12-25) (Part )</a></li>-->
+    <!--<li><a href="http://cuentation.com">Roger Shah - Magic Island - Music for Balearic People 293 (2013-12-27)</a>-->
+    <!--</li>-->
+    <!--<li><a href="http://cuentation.com">Hernan Cattaneo - Resident 138 (28-12-2013)[Podcast]</a></li>-->
+    <!--<li><a href="http://cuentation.com">Tiësto - Club Life 352 (2013-12-29) (Special The Best Of 2013) [MM]-->
+    <!--(SBD)</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+</div>
+
+
+</body>
+</html>
