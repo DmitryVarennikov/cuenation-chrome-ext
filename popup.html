@@ -2,134 +2,9 @@
 <html>
 <head>
     <style>
-        .clear:after {
-            content: " ";
-            display: block;
-            height: 0;
-            clear: both;
-            overflow: hidden;
-            visibility: hidden;
-        }
 
-        body {
-            background-color: #FDF5EA;
-            font-family: Verdana, Sans-serif;
-        }
-
-        #flash-message {
-            position: absolute;
-            top: 8px;
-            left: 280px;
-            color: #C09853;
-            background-color: #FCF8E3;
-            border: 1px solid #FBEED5;
-            padding: 5px;
-            display: none;
-        }
-
-        #logo {
-            margin: 0 15px;
-        }
-
-        #menu {
-            display: block;
-            padding-left: 15px;
-        }
-
-        #menu li {
-            float: left;
-            list-style: none;
-            background-color: #B7AF9C;
-            border: 1px solid #000;
-            margin-right: 5px;
-        }
-
-        #menu li a {
-            cursor: pointer;
-            display: block;
-            background-color: #807A60;
-            padding: 7px 15px;
-            margin: 1px;
-            color: #EDE8D4;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        #page-content {
-            width: 570px;
-            border: solid 1px #EADDBB;
-            margin: 15px;
-            padding: 5px 5px 5px 25px;
-            background-color: #F7F7EF;
-        }
-
-        #loader {
-            margin: 30px 0 30px 269px;
-        }
-
-        .page-title {
-            color: #807A60;
-            font-size: 20px;
-        }
-
-        #subscriptions-updates {
-            list-style: none;
-            list-style-image: url('images/download.png');
-            padding-left: 0;
-        }
-
-        #subscriptions-updates li {
-            font-size: 12px;
-            margin-bottom: 5px;
-        }
-
-        #subscriptions-updates a {
-            color: #AAA488;
-        }
-
-        #subscriptions-updates a:hover {
-            color: #807A60;
-        }
-
-        #subscriptions {
-            width: 100%;
-            font-size: 12px;
-        }
-
-        #subscriptions td {
-            padding: 5px 0;
-        }
-
-        #subscriptions tr.odd {
-            background-color: #F2EDDA;
-        }
-
-        #subscriptions tr:hover {
-            background-color: #EADDBB;
-        }
-
-        #subscriptions tr td:first-child {
-            width: 50px;
-            text-align: center;
-        }
-
-        #subscriptions tr td:nth-child(2) {
-            width: 210px;
-        }
-
-        #subscriptions .name {
-            color: #807A60;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        #subscriptions .desc {
-            color: #6E6752;
-            font-size: 11px;
-            font-style: italic;
-        }
     </style>
+    <link href="styles/popup.css" media="all" rel="stylesheet" type="text/css"/>
     <script data-main="scripts/main" src="scripts/require.js"></script>
 </head>
 <body>
@@ -140,10 +15,10 @@
 
 <ul id="menu">
     <li>
-        <a class="landing" href="subscriptions-updates">Updates</a>
+        <a class="landing" href="cues">Cues</a>
     </li>
     <li>
-        <a href="subscriptions">My Subscriptions</a>
+        <a href="categories">Categories</a>
     </li>
 </ul>
 
@@ -151,65 +26,84 @@
 
 <div id="page-content">
 
-    <!--<h1 class="page-title">My Subscriptions</h1>-->
+    <!--<h1 class="page-title">Categories</h1>-->
 
-    <!--<button name="save">Save</button>-->
+    <!--<ul class="clear" id="categories-navigation">-->
+        <!--<li><a href="#abc-no-name">#</a></li>-->
+        <!--<li><a href="#abc-a">A</a></li>-->
+        <!--<li><a href="#abc-b">B</a></li>-->
+        <!--<li><a href="#abc-b">C</a></li>-->
+        <!--<li><a href="#abc-b">D</a></li>-->
+        <!--<li><a href="#abc-b">E</a></li>-->
+        <!--<li><a href="#abc-b">F</a></li>-->
+        <!--<li><a href="#abc-b">G</a></li>-->
+    <!--</ul>-->
 
-    <!--<table id="subscriptions" cellpadding="0" cellspacing="0">-->
-    <!--<tr class="odd">-->
-    <!--<td><input type="checkbox" name="subscriptions" value="A State of Sundays"></td>-->
-    <!--<td>-->
-    <!--<img src="http://cuenation.com/thumb.php?image=images/asot/asot.jpg&scale=33&qual=95" width="198"-->
-    <!--height="40">-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<div class="name">A State of Sundays</div>-->
-    <!--<div class="desc">with Armin van Buuren</div>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-    <!--<td><input type="checkbox" name="subscriptions"></td>-->
-    <!--<td>-->
-    <!--<img src="http://cuenation.com/thumb.php?image=images/asot/asot.jpg&scale=33&qual=95" width="198"-->
-    <!--height="40">-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<div class="name">A State of Sundays</div>-->
-    <!--<div class="desc">with Armin van Buuren</div>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--<tr class="odd">-->
-    <!--<td><input type="checkbox" name="subscriptions"></td>-->
-    <!--<td>-->
-    <!--<img src="http://cuenation.com/thumb.php?image=images/asot/asot.jpg&scale=33&qual=95" width="198"-->
-    <!--height="40">-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<div class="name">A State of Sundays</div>-->
-    <!--<div class="desc">with Armin van Buuren</div>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--<tr>-->
-    <!--<td><input type="checkbox" name="subscriptions"></td>-->
-    <!--<td>-->
-    <!--<img src="http://cuenation.com/thumb.php?image=images/asot/asot.jpg&scale=33&qual=95" width="198"-->
-    <!--height="40">-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<div class="name">A State of Sundays</div>-->
-    <!--<div class="desc">with Armin van Buuren</div>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--</table>-->
+    <!--<div class="controls-container clear">-->
+        <!--<button name="save">Save</button>-->
+    <!--</div>-->
 
-    <!--<button name="save">Save</button>-->
+    <!--<div class="letter-container" id="abc-no-name">-->
+        <!--<div class="letter">#</div>-->
+        <!--<ul class="categories-list clear">-->
+            <!--<li>-->
+                <!--<label>-->
+                    <!--<input type="checkbox" name="categories" value="">-->
+                    <!--#goldrushRADIO-->
+                <!--</label>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<label>-->
+                    <!--<input type="checkbox" name="categories" value="">-->
+                    <!--4H Community's Mixes-->
+                <!--</label>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+
+    <!--<div class="letter-container" id="abc-a">-->
+        <!--<div class="letter">A</div>-->
+        <!--<ul class="categories-list clear">-->
+            <!--<li>-->
+                <!--<label>-->
+                    <!--<input type="checkbox" name="categories" value="">-->
+                    <!--A State of Sundays-->
+                <!--</label>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<label>-->
+                    <!--<input type="checkbox" name="categories" value="">-->
+                    <!--A State of Trance-->
+                <!--</label>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<label>-->
+                    <!--<input type="checkbox" name="categories" value="">-->
+                    <!--A State of Trance Invasion-->
+                <!--</label>-->
+            <!--</li>-->
+            <!--<li>-->
+                <!--<label>-->
+                    <!--<input type="checkbox" name="categories" value="">-->
+                    <!--A State of Trance Official Podcast-->
+                <!--</label>-->
+            <!--</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+
+    <!--<div class="controls-container clear">-->
+        <!--<button name="save">Save</button>-->
+    <!--</div>-->
 
 
-    <!--<ul id="subscriptions-updates">-->
+    <!--<ul id="recent-cues">-->
 
-    <!--<li><a href="http://cuentation.com">Chris Goss &amp; Tomahawk - Hospital Radio (2013-12-25) (Incl. Metrik and-->
+    <!--<li>-->
+    <!--<a href="http://cuentation.com">Chris Goss &amp; Tomahawk - Hospital Radio (2013-12-25) (Incl. Metrik and-->
     <!--S.P.Y-->
-    <!--Live Guestmixes) [Podcast]</a></li>-->
+    <!--Live Guestmixes) [Podcast]</a>-->
+    <!--<span class="delete">[Dismiss]</span>-->
+    <!--</li>-->
     <!--<li><a href="http://cuentation.com">Friction - Drum &amp; Bass Show (2013-29-12) (Best Of 2013) [TALiON]</a>-->
     <!--</li>-->
     <!--<li><a href="http://cuentation.com">M.Pravda - Live in Motion 173 (2013-12-28) (Best of 2013 Part 1)</a></li>-->

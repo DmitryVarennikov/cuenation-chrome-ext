@@ -12,7 +12,7 @@ define(['scripts/config', 'scripts/domain/Cue', 'scripts/utils/Pageable'], funct
         /**
          * @param {String} token
          * @param {Number} page
-         * @param {Function} callback({Error}, {domain.Cue[]})
+         * @param {Function} callback({Error}, {domain.Cue[]}, {utils.Pageable})
          */
         this.get = function (token, page, callback) {
             var req = new XMLHttpRequest();

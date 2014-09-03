@@ -10,7 +10,7 @@ define(['scripts/config', 'scripts/domain/CueCategory'], function (config, CueCa
         var baseUrl = config['api-server-url'];
 
         /**
-         * @param {Function} callback({Error}, {domain.CueCategory[]}, {Pageable})
+         * @param {Function} callback({Error}, {domain.CueCategory[]})
          */
         this.get = function (callback) {
             var req = new XMLHttpRequest();

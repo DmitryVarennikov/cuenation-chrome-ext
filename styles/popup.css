@@ -1,0 +1,176 @@
+.clear:after {
+    content: " ";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+body {
+    background-color: #FDF5EA;
+    font-family: Verdana, Sans-serif;
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* @TODO: add classes: error and info */
+#flash-message {
+    position: absolute;
+    top: 8px;
+    left: 280px;
+    color: #C09853;
+    background-color: #FCF8E3;
+    border: 1px solid #FBEED5;
+    padding: 5px;
+    display: none;
+}
+
+#logo {
+    margin: 0 15px;
+}
+
+#menu {
+    display: block;
+    padding-left: 15px;
+}
+
+#menu li {
+    float: left;
+    list-style: none;
+    background-color: #B7AF9C;
+    border: 1px solid #000;
+    margin-right: 5px;
+}
+
+#menu li a {
+    cursor: pointer;
+    display: block;
+    background-color: #807A60;
+    padding: 7px 15px;
+    margin: 1px;
+    color: #EDE8D4;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#page-content {
+    width: 570px;
+    border: solid 1px #EADDBB;
+    margin: 15px;
+    padding: 5px 5px 5px 10px;
+    background-color: #f3eeda;
+}
+
+/*#page-content {*/
+/*width: 570px;*/
+/*border: solid 1px #EADDBB;*/
+/*margin: 15px;*/
+/*padding: 5px 5px 5px 25px;*/
+/*background-color: #F7F7EF;*/
+/*}*/
+
+#loader {
+    margin: 30px 0 30px 269px;
+}
+
+.page-title {
+    color: #807A60;
+    font-size: 20px;
+}
+
+#recent-cues {
+    list-style: none inside url('../images/download.png');
+    margin: 10px 0 0 0;
+}
+
+#recent-cues li {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+#recent-cues a {
+    color: #AAA488;
+}
+
+#recent-cues a:hover {
+    color: #807A60;
+}
+
+#recent-cues span.delete {
+    color: #AAA488;
+    font-weight: bold;
+    font-size: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#recent-cues span.delete:hover {
+    color: #807A60;
+}
+
+#categories-navigation {
+    margin: 10px 0 0 10px;
+}
+
+#categories-navigation li {
+    float: left;
+    list-style: none;
+    margin-right: 2px;
+}
+
+#categories-navigation li a {
+    color: #807A60;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#categories-navigation li a:hover {
+    color: #AAA488;
+}
+
+.controls-container {
+    margin-top: 10px;
+}
+
+.controls-container button {
+    float: right;
+    margin: 0;
+    border: 1px solid #306C90;
+    padding: 3px 6px;
+}
+
+.letter-container {
+    margin-top: 10px;
+    border: solid 1px #EADDBB;
+    padding: 5px 5px 5px 10px;
+    background-color: #f7f7ef;
+}
+
+.letter-container .letter {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.letter-container .categories-list {
+    padding: 10px 0 0 0;
+}
+
+.letter-container .categories-list li {
+    float: left;
+    width: 168px;
+    padding-right: 15px;
+    list-style: none;
+    color: #807A60;
+    font-size: 11px;
+    font-weight: bold;
+}
