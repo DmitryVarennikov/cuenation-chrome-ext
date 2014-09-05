@@ -15,7 +15,7 @@ define(['scripts/config', 'scripts/domain/CueCategory'], function (config, CueCa
          */
         this.get = function (token, callback) {
             var req = new XMLHttpRequest();
-            req.open('GET', baseUrl + '/user-tokens/' + token + '/categories', true);
+            req.open('GET', baseUrl + '/user-tokens/' + token + '/cue-categories', true);
             req.onreadystatechange = function () {
                 if (4 === req.readyState) {
                     if (200 === req.status) {
@@ -24,8 +24,11 @@ define(['scripts/config', 'scripts/domain/CueCategory'], function (config, CueCa
 
                         var cueCategoriesData = response._embedded && response._embedded.userCueCategories || [];
                         for (var i = 0; i < cueCategoriesData.length; i ++) {
-                            cueCategories[i] = new CueCategory(cueCategoriesData[i].id,
-                                cueCategoriesData[i].name, cueCategoriesData[i].link);
+                            cueCategories[i] = new CueCategory(
+                                cueCategoriesData[i].id,
+                                cueCategoriesData[i].name,
+                                cueCategoriesData[i].host,
+                                cueCategoriesData[i].link);
                         }
 
                         callback(null, cueCategories);
@@ -44,7 +47,7 @@ define(['scripts/config', 'scripts/domain/CueCategory'], function (config, CueCa
          */
         this.put = function (token, ids, callback) {
             var req = new XMLHttpRequest();
-            req.open('PUT', baseUrl + '/user-tokens/' + token + '/categories', true);
+            req.open('PUT', baseUrl + '/user-tokens/' + token + '/cue-categories', true);
             req.onreadystatechange = function () {
                 if (4 === req.readyState) {
                     if (200 === req.status) {

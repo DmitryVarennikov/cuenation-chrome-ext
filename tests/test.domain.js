@@ -36,12 +36,14 @@ define(function (require) {
             it('correct object', function () {
                 var id = '53e5bc5b837125a9f6149e4b',
                     name = '#goldrushRADIO',
+                    host = 'with Ben Gold',
                     link = 'http://cuenation.com/?page=cues&folder=goldrushradio';
 
-                var cueCategory = new CueCategory(id, name, link);
+                var cueCategory = new CueCategory(id, name, host, link);
 
                 chai.assert.equal(cueCategory.id, id);
                 chai.assert.equal(cueCategory.name, name);
+                chai.assert.equal(cueCategory.host, host);
                 chai.assert.equal(cueCategory.link, link);
             });
         });

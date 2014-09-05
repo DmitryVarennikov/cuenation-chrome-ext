@@ -23,8 +23,11 @@ define(['scripts/config', 'scripts/domain/CueCategory'], function (config, CueCa
 
                         var cueCategoriesData = response._embedded && response._embedded.cueCategories || [];
                         for (var i = 0; i < cueCategoriesData.length; i ++) {
-                            cueCategories[i] = new CueCategory(cueCategoriesData[i].id,
-                                cueCategoriesData[i].name, cueCategoriesData[i].link);
+                            cueCategories[i] = new CueCategory(
+                                cueCategoriesData[i].id,
+                                cueCategoriesData[i].name,
+                                cueCategoriesData[i].host,
+                                cueCategoriesData[i].link);
                         }
 
                         callback(null, cueCategories);

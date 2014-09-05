@@ -1,6 +1,9 @@
 'use strict';
 
-define(['scripts/view/View'], function (View) {
+define([
+    'scripts/view/View',
+    'scripts/view/Message'
+], function (View, MessageView) {
     function CuesView(container, messageView, user, userCueService) {
         if (! (this instanceof CuesView)) {
             throw new Error('`this` must be an instance of view.CuesView');
@@ -10,28 +13,26 @@ define(['scripts/view/View'], function (View) {
 
         function render(cues, pageable) {
             var forEach = Array.prototype.forEach,
-                item,
-                h1,
-                ul,
-                li,
-                a,
-                span,
-                whitespace;
+                containerBody = document.createDocumentFragment(),
+                cuesList;
 
-            ul = document.createElement('ul');
-            ul.setAttribute('id', 'recent-cues');
+            cuesList = document.createElement('ul');
+            cuesList.setAttribute('id', 'recent-cues');
 
-            for (var i = 0; i < cues.length; i ++) {
-                item = cues[i];
+            function createCuesListItem(cue) {
+                var li,
+                    a,
+                    span,
+                    whitespace;
 
                 a = document.createElement('a');
-                a.setAttribute('href', item.link);
+                a.setAttribute('href', cue.link);
                 a.setAttribute('target', '_blank');
-                a.innerText = item.title;
+                a.innerText = cue.title;
 
                 span = document.createElement('span');
                 span.setAttribute('class', 'delete');
-                span.dataset.id = item.id;
+                span.dataset.id = cue.id;
                 span.innerText = '[Dismiss]';
 
                 whitespace = document.createTextNode(' ');
@@ -41,27 +42,27 @@ define(['scripts/view/View'], function (View) {
                 li.appendChild(whitespace);
                 li.appendChild(span);
 
-                ul.appendChild(li);
+                return li;
             }
 
-            h1 = document.createElement('h1');
-            h1.setAttribute('class', 'page-title');
-            h1.innerText = 'Cues';
+            for (var i = 0; i < cues.length; i ++) {
+                cuesList.appendChild(createCuesListItem(cues[i]));
+            }
 
+            containerBody.appendChild(cuesList);
 
             container.innerHTML = '';
-            container.appendChild(h1);
-            container.appendChild(ul);
+            container.appendChild(containerBody);
 
 
-            forEach.call(ul.querySelectorAll('.delete'), function (el) {
+            forEach.call(cuesList.querySelectorAll('.delete'), function (el) {
                 el.addEventListener('click', function (e) {
                     var ids = [this.dataset.id];
 
                     this.parentElement.remove();
                     userCueService.put(user.token, ids, function (err) {
                         if (err) {
-                            messageView.show('error', err);
+                            messageView.show(MessageView.status.ERROR, err);
                         }
                     });
                 });

@@ -1,6 +1,9 @@
 'use strict';
 
-define(['scripts/view/View'], function (View) {
+define([
+    'scripts/view/View',
+    'scripts/view/Message'
+], function (View, MessageView) {
     function CategoriesView(container, messageView, user, cueCategoryService, userCueCategoryService) {
         if (! (this instanceof CategoriesView)) {
             throw new Error('`this` must be an instance of view.CategoriesView');
@@ -12,7 +15,7 @@ define(['scripts/view/View'], function (View) {
         function render(categories, userCategories) {
             var forEach = Array.prototype.forEach,
                 containerBody = document.createDocumentFragment(),
-                title,
+                topControlsContainer,
                 controlsContainer,
                 alphabet = [],
                 categoriesNavigation,
@@ -20,10 +23,6 @@ define(['scripts/view/View'], function (View) {
                 letterContainers = document.createDocumentFragment(),
                 letterContainer,
                 button;
-
-            title = document.createElement('h1');
-            title.setAttribute('class', 'page-title');
-            title.innerText = 'Categories';
 
 
             button = document.createElement('button');
@@ -37,6 +36,11 @@ define(['scripts/view/View'], function (View) {
             categoriesNavigation = document.createElement('ul');
             categoriesNavigation.setAttribute('id', 'categories-navigation');
             categoriesNavigation.setAttribute('class', 'clear');
+
+            topControlsContainer = document.createElement('div');
+            topControlsContainer.setAttribute('id', 'top-controls-container');
+            topControlsContainer.appendChild(controlsContainer);
+            topControlsContainer.appendChild(categoriesNavigation);
 
             /**
              *
@@ -78,7 +82,7 @@ define(['scripts/view/View'], function (View) {
             }
 
             function createLetterContainer(char, categories, userCategories) {
-                var li, label, input, txtNode;
+                var label, input, name, host;
 
                 function isChecked(id) {
                     for (var i = 0; i < userCategories.length; i ++) {
@@ -98,8 +102,8 @@ define(['scripts/view/View'], function (View) {
                 letter.setAttribute('class', char);
                 letter.innerText = char;
 
-                var categoriesList = document.createElement('ul');
-                categoriesList.setAttribute('class', 'categories-list clear');
+                var categoriesList = document.createElement('div');
+                categoriesList.setAttribute('class', 'categories-list');
 
                 for (var i = 0; i < categories.length; i ++) {
                     input = document.createElement('input');
@@ -111,16 +115,23 @@ define(['scripts/view/View'], function (View) {
                     }
 
 
-                    txtNode = document.createTextNode(categories[i].name);
+                    name = document.createTextNode(categories[i].name);
+
+                    if (categories[i].host) {
+                        host = document.createElement('i');
+                        host.innerText = categories[i].host;
+                    } else {
+                        host = document.createTextNode('');
+                    }
+
 
                     label = document.createElement('label');
                     label.appendChild(input);
-                    label.appendChild(txtNode);
+                    label.appendChild(name);
+                    label.appendChild(document.createElement('br'));
+                    label.appendChild(host);
 
-                    li = document.createElement('li');
-                    li.appendChild(label);
-
-                    categoriesList.appendChild(li);
+                    categoriesList.appendChild(label);
                 }
 
 
@@ -150,9 +161,7 @@ define(['scripts/view/View'], function (View) {
             });
 
 
-            containerBody.appendChild(title);
-            containerBody.appendChild(controlsContainer);
-            containerBody.appendChild(categoriesNavigation);
+            containerBody.appendChild(topControlsContainer);
             containerBody.appendChild(letterContainers);
             containerBody.appendChild(controlsContainer.cloneNode(true));
 
@@ -160,7 +169,32 @@ define(['scripts/view/View'], function (View) {
             container.appendChild(containerBody);
 
 
-            // @TODO: subscribe for "save" event
+            forEach.call(container.querySelectorAll('button[name="save"]'), function (button) {
+                button.addEventListener('click', function (e) {
+                    var ids = [];
+                    forEach.call(container.querySelectorAll('input[name="categories"]:checked'), function (input) {
+                        ids.push(input.value);
+                    });
+
+
+                    messageView.show(MessageView.status.INFO, 'Saved');
+                    userCueCategoryService.put(user.token, ids, function (err) {
+                        if (err) {
+                            messageView.show(MessageView.status.ERROR, err);
+                        }
+                    });
+                });
+            });
+
+            window.addEventListener('scroll', function () {
+                var topControlsContainer = document.getElementById('top-controls-container');
+
+                if (document.body.scrollTop >= 200) {
+                    topControlsContainer.setAttribute('class', 'fixed-to-top');
+                } else {
+                    topControlsContainer.setAttribute('class', '');
+                }
+            });
         }
 
 

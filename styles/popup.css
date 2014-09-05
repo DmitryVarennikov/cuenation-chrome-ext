@@ -10,6 +10,7 @@
 body {
     background-color: #FDF5EA;
     font-family: Verdana, Sans-serif;
+    color: #333333;
 }
 
 h1 {
@@ -25,13 +26,22 @@ ul {
 /* @TODO: add classes: error and info */
 #flash-message {
     position: absolute;
-    top: 8px;
-    left: 280px;
+    /*top: 8px;*/
+    /*left: 280px;*/
+    padding: 5px;
+    display: none;
+}
+
+#flash-message.info {
     color: #C09853;
     background-color: #FCF8E3;
     border: 1px solid #FBEED5;
-    padding: 5px;
-    display: none;
+}
+
+#flash-message.error {
+    color: #c01711;
+    background-color: #fcd3db;
+    border: 1px solid #fb879b;
 }
 
 #logo {
@@ -63,10 +73,14 @@ ul {
     font-weight: bold;
 }
 
+#menu li a.active {
+    /*background-color: #B7AF9C;*/
+}
+
 #page-content {
-    width: 570px;
+    width: 585px;
     border: solid 1px #EADDBB;
-    margin: 15px;
+    margin: 5px 15px 15px 15px;
     padding: 5px 5px 5px 10px;
     background-color: #f3eeda;
 }
@@ -138,6 +152,19 @@ ul {
     color: #AAA488;
 }
 
+#top-controls-container {
+    width: 568px;
+    margin-top: 10px;
+    border: solid 1px #EADDBB;
+    padding: 5px 5px 5px 10px;
+    background-color: #f7f7ef;
+}
+
+.fixed-to-top {
+    position: fixed;
+    top: 0;
+}
+
 .controls-container {
     margin-top: 10px;
 }
@@ -163,14 +190,28 @@ ul {
 
 .letter-container .categories-list {
     padding: 10px 0 0 0;
+    -webkit-column-count: 3;
+    column-count: 3;
 }
 
-.letter-container .categories-list li {
-    float: left;
-    width: 168px;
-    padding-right: 15px;
-    list-style: none;
+.letter-container .categories-list label {
+    display: inline-block;
+    padding-left: 15px;
+    margin-bottom: 5px;
     color: #807A60;
     font-size: 11px;
     font-weight: bold;
+}
+
+.letter-container .categories-list label input {
+    margin-left: -15px;
+    vertical-align: middle;
+    float: left;
+}
+
+.letter-container .categories-list label i {
+    font-size: 10px;
+    font-weight: normal;
+    font-style: italic;
+    color: #333333;
 }
