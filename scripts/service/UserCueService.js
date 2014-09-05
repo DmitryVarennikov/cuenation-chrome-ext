@@ -16,7 +16,7 @@ define(['scripts/config', 'scripts/domain/Cue', 'scripts/utils/Pageable'], funct
          */
         this.get = function (token, page, callback) {
             var req = new XMLHttpRequest();
-            req.open('GET', baseUrl + '/user-tokens/' + token + '/cues?page=' + page, true);
+            req.open('GET', baseUrl + '/user-tokens/' + token + '/cues?page=' + page + '&size=50', true);
             req.onreadystatechange = function () {
                 if (4 === req.readyState) {
                     if (200 === req.status) {
