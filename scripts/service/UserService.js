@@ -67,7 +67,7 @@ define(['scripts/config', 'scripts/domain/User'], function (config, User) {
                     user = new User(obj.token);
                     callback(null, user);
                 } else {
-                    this.post(function (err, user) {
+                    userService.post(function (err, user) {
                         if (err) {
                             callback(err);
                         } else {

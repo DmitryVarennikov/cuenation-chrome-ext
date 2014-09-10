@@ -15,15 +15,15 @@ define([
 
 
         window.addEventListener('scroll', function () {
-            var topControlsContainer = document.getElementById('top-controls-container');
+            var topControlsContainer = document.getElementById('top-controls-container'),
+                scrollTop = document.getElementById('logo').offsetHeight
+                    + document.getElementById('menu').offsetHeight;
 
             if (! topControlsContainer) {
                 return;
             }
 
-            console.log(new Date());
-
-            if (document.body.scrollTop >= 153) {
+            if (document.body.scrollTop >= scrollTop) {
                 topControlsContainer.setAttribute('class', 'letter-container clear top-controls-container-fixed');
             } else {
                 topControlsContainer.setAttribute('class', 'letter-container clear ');
@@ -35,6 +35,7 @@ define([
             var forEach = Array.prototype.forEach,
                 containerBody = document.createDocumentFragment(),
                 topControlsContainer,
+                topControlsContainerWrapper,
                 controlsContainer,
                 alphabet = [],
                 categoriesNavigation,
@@ -56,6 +57,10 @@ define([
             topControlsContainer.setAttribute('class', 'letter-container clear');
             topControlsContainer.appendChild(button);
             topControlsContainer.appendChild(categoriesNavigation);
+
+            topControlsContainerWrapper = document.createElement('div');
+            topControlsContainerWrapper.setAttribute('id', 'top-controls-container-wrapper');
+            topControlsContainerWrapper.appendChild(topControlsContainer);
 
             /**
              *
@@ -86,12 +91,12 @@ define([
             }
 
             function createCategoriesNavigationElement(char) {
-                var a = document.createElement('a');
-                a.setAttribute('href', '#abc-' + char);
-                a.innerText = char;
+                var span = document.createElement('span');
+                span.dataset.id = 'abc-' + char;
+                span.innerText = char;
 
                 var li = document.createElement('li');
-                li.appendChild(a);
+                li.appendChild(span);
 
                 return li;
             }
@@ -132,11 +137,11 @@ define([
 
                     name = document.createTextNode(categories[i].name);
 
+                    host = document.createElement('i');
                     if (categories[i].host) {
-                        host = document.createElement('i');
                         host.innerText = categories[i].host;
                     } else {
-                        host = document.createTextNode('');
+                        host.innerHTML = '&nbsp;';
                     }
 
 
@@ -176,12 +181,15 @@ define([
             });
 
 
-            containerBody.appendChild(topControlsContainer);
+            containerBody.appendChild(topControlsContainerWrapper);
             containerBody.appendChild(letterContainers);
 
             container.innerHTML = '';
             container.appendChild(containerBody);
+        }
 
+        function listenToSave() {
+            var forEach = Array.prototype.forEach;
 
             forEach.call(container.querySelectorAll('button[name="save"]'), function (button) {
                 button.addEventListener('click', function (e) {
@@ -201,6 +209,22 @@ define([
             });
         }
 
+        // @TODO: offset doesn't work correctly from the top
+        function listenToCategoriesNavigation() {
+            var forEach = Array.prototype.forEach,
+                navigationOffset = document.getElementById('menu').offsetHeight
+                    + document.getElementById('top-controls-container').offsetHeight;
+
+            forEach.call(document.getElementById('categories-navigation').querySelectorAll('span'), function (el) {
+                el.addEventListener('click', function (e) {
+                    console.log(document.getElementById(el.dataset.id).offsetTop);
+
+                    var yOffset = document.getElementById(el.dataset.id).offsetTop - navigationOffset;
+                    window.scrollTo(0, yOffset);
+                });
+            });
+        }
+
 
         this.render = function () {
             categoriesView.renderLoader();
@@ -212,6 +236,8 @@ define([
             function caller() {
                 if (typeof _categories != 'undefined' && typeof _userCategories != 'undefined') {
                     render(_categories, _userCategories);
+                    listenToSave();
+                    listenToCategoriesNavigation();
                 }
             }
 

@@ -54,6 +54,10 @@ ul {
     display: block;
 }
 
+#menu-wrapper {
+    height: 44px;
+}
+
 #menu {
     display: block;
     margin: 0;
@@ -83,8 +87,13 @@ ul {
     font-weight: bold;
 }
 
-#menu li a.active {
-    /*background-color: #B7AF9C;*/
+#menu li.active {
+    background-color: #807A60;
+}
+
+#menu li.active a {
+    background-color: #f3eeda;
+    color: #807A60;
 }
 
 .menu-fixed-to-top {
@@ -146,18 +155,19 @@ ul {
     margin-right: 2px;
 }
 
-#categories-navigation li a {
+#categories-navigation li span {
+    cursor: pointer;
     color: #807A60;
     font-size: 14px;
     font-weight: bold;
 }
 
-#categories-navigation li a:hover {
+#categories-navigation li span:hover {
     color: #AAA488;
 }
 
-#top-controls-container {
-
+#top-controls-container-wrapper {
+    height: 40px;
 }
 
 .top-controls-container-fixed {
@@ -199,6 +209,8 @@ button[name="save"] {
     color: #807A60;
     font-size: 11px;
     font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .letter-container .categories-list label input {

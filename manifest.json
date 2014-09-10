@@ -11,12 +11,9 @@
         "default_title": "CueNation",
         "default_popup": "popup.html"
     },
-//    "background":       {
-//        "persistent": false,
-//        "scripts":    ["background.js"]
-//    },
     "permissions":      [
         "storage",
+        "management",
         "http://localhost:8080/*",
         "http://162.243.254.55:8080/*"
     ]

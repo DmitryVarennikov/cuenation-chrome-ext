@@ -12,10 +12,10 @@ define(function () {
             el.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                forEach.call(document.getElementById('menu').querySelectorAll('a'), function (el) {
+                forEach.call(document.getElementById('menu').children, function (el) {
                     el.removeAttribute('class');
                 });
-                el.setAttribute('class', 'active');
+                el.parentNode.setAttribute('class', 'active');
 
                 var callback = router.getCallback(this.getAttribute('href'));
                 callback();
