@@ -1,6 +1,6 @@
 {
     "name":             "CueNation",
-    "version":          "1.0",
+    "version":          "0.1.0",
     "manifest_version": 2,
     "description":      "Let you subscribe and track new cues of your desired radio shows.",
     "icons":            {
@@ -16,6 +16,7 @@
 //        "scripts":    ["background.js"]
 //    },
     "permissions":      [
+        "storage",
         "http://localhost:8080/*",
         "http://162.243.254.55:8080/*"
     ]

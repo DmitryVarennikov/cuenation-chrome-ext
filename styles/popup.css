@@ -23,13 +23,11 @@ ul {
     padding: 0;
 }
 
-/* @TODO: add classes: error and info */
 #flash-message {
     position: absolute;
-    /*top: 8px;*/
-    /*left: 280px;*/
     padding: 5px;
     display: none;
+    z-index: 1;
 }
 
 #flash-message.info {
@@ -45,7 +43,7 @@ ul {
 }
 
 #wrapper {
-    background-color: #FFF;
+    background-color: #FFFFFF;
     padding: 5px;
     width: 600px;
     box-shadow: 5px 5px 5px #888888;
@@ -53,11 +51,16 @@ ul {
 
 #logo {
     margin: 0;
+    display: block;
 }
 
 #menu {
     display: block;
-    /*padding-left: 15px;*/
+    margin: 0;
+    padding: 5px 0;
+    width: 600px;
+    background-color: #FFFFFF;
+    border-bottom: solid 1px #EADDBB;
 }
 
 #menu li {
@@ -84,21 +87,22 @@ ul {
     /*background-color: #B7AF9C;*/
 }
 
-#page-content {
-    width: 585px;
+.menu-fixed-to-top {
+    position: fixed;
+    top: 0;
+}
+
+.page-content {
+    width: 588px;
     border: solid 1px #EADDBB;
-    margin: 5px 0 15px 0;
+    border-top: none;
+    margin: 0 0 15px 0;
     padding: 5px 5px 5px 5px;
     background-color: #f3eeda;
 }
 
 #loader {
     margin: 30px 0 30px 269px;
-}
-
-.page-title {
-    color: #807A60;
-    font-size: 20px;
 }
 
 #recent-cues {
@@ -132,7 +136,8 @@ ul {
 }
 
 #categories-navigation {
-    margin: 10px 0 0 10px;
+    display: block;
+    float: left;
 }
 
 #categories-navigation li {
@@ -152,23 +157,17 @@ ul {
 }
 
 #top-controls-container {
-    /*width: 568px;*/
-    margin-top: 10px;
-    border: solid 1px #EADDBB;
-    padding: 5px 5px 5px 10px;
-    background-color: #f7f7ef;
+
 }
 
-/*.fixed-to-top {*/
-/*position: fixed;*/
-/*top: 0;*/
-/*}*/
-
-.controls-container {
-    margin-top: 10px;
+.top-controls-container-fixed {
+    position: fixed;
+    top: 43px;
+    width: 571px;
 }
 
-.controls-container button {
+button[name="save"] {
+    display: block;
     float: right;
     margin: 0;
     border: 1px solid #306C90;
@@ -176,7 +175,7 @@ ul {
 }
 
 .letter-container {
-    margin-top: 10px;
+    margin-bottom: 5px;
     border: solid 1px #EADDBB;
     padding: 5px 5px 5px 10px;
     background-color: #f7f7ef;

@@ -9,7 +9,9 @@ define([
             throw new Error('`this` must be an instance of view.CuesView');
         }
 
-        View.call(this);
+        View.call(this, container);
+
+        var cuesView = this;
 
         function render(cues, pageable) {
             var forEach = Array.prototype.forEach,
@@ -70,6 +72,8 @@ define([
         }
 
         this.render = function () {
+            cuesView.renderLoader();
+
             userCueService.get(user.token, 0, function (err, cues, pageable) {
                 if (err) {
                     messageView.show('error', err);

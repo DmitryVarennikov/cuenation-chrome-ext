@@ -9,7 +9,26 @@ define([
             throw new Error('`this` must be an instance of view.CategoriesView');
         }
 
-        View.call(this);
+        View.call(this, container);
+
+        var categoriesView = this;
+
+
+        window.addEventListener('scroll', function () {
+            var topControlsContainer = document.getElementById('top-controls-container');
+
+            if (! topControlsContainer) {
+                return;
+            }
+
+            console.log(new Date());
+
+            if (document.body.scrollTop >= 153) {
+                topControlsContainer.setAttribute('class', 'letter-container clear top-controls-container-fixed');
+            } else {
+                topControlsContainer.setAttribute('class', 'letter-container clear ');
+            }
+        });
 
 
         function render(categories, userCategories) {
@@ -28,18 +47,14 @@ define([
             button = document.createElement('button');
             button.setAttribute('name', 'save');
             button.innerText = 'Save';
-            controlsContainer = document.createElement('div');
-            controlsContainer.setAttribute('class', 'controls-container clear');
-            controlsContainer.appendChild(button);
-
 
             categoriesNavigation = document.createElement('ul');
             categoriesNavigation.setAttribute('id', 'categories-navigation');
-            categoriesNavigation.setAttribute('class', 'clear');
 
             topControlsContainer = document.createElement('div');
             topControlsContainer.setAttribute('id', 'top-controls-container');
-            topControlsContainer.appendChild(controlsContainer);
+            topControlsContainer.setAttribute('class', 'letter-container clear');
+            topControlsContainer.appendChild(button);
             topControlsContainer.appendChild(categoriesNavigation);
 
             /**
@@ -163,7 +178,6 @@ define([
 
             containerBody.appendChild(topControlsContainer);
             containerBody.appendChild(letterContainers);
-            containerBody.appendChild(controlsContainer.cloneNode(true));
 
             container.innerHTML = '';
             container.appendChild(containerBody);
@@ -185,20 +199,13 @@ define([
                     });
                 });
             });
-
-            window.addEventListener('scroll', function () {
-                var topControlsContainer = document.getElementById('top-controls-container');
-
-                if (document.body.scrollTop >= 200) {
-                    topControlsContainer.setAttribute('class', 'fixed-to-top');
-                } else {
-                    topControlsContainer.setAttribute('class', '');
-                }
-            });
         }
 
 
         this.render = function () {
+            categoriesView.renderLoader();
+
+
             var _categories,
                 _userCategories;
 

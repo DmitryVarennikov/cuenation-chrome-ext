@@ -21,6 +21,16 @@ define(function () {
                 callback();
             });
         });
+
+        window.addEventListener('scroll', function () {
+            var menu = document.getElementById('menu');
+
+            if (document.body.scrollTop >= 110) {
+                menu.setAttribute('class', 'clear menu-fixed-to-top');
+            } else {
+                menu.setAttribute('class', 'clear ');
+            }
+        });
     }
 
     return TopNavigation;

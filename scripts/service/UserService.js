@@ -54,6 +54,31 @@ define(['scripts/config', 'scripts/domain/User'], function (config, User) {
             }
             req.send(null);
         }
+
+        /**
+         * @param {Object} storage - chrome.storage.sync (see https://developer.chrome.com/extensions/storage)
+         * @param {Function} callback({Error}, {domain.User})
+         */
+        this.init = function (storage, callback) {
+            var user;
+
+            storage.get('token', function (obj) {
+                if (obj.token) {
+                    user = new User(obj.token);
+                    callback(null, user);
+                } else {
+                    this.post(function (err, user) {
+                        if (err) {
+                            callback(err);
+                        } else {
+                            storage.set({"token": user.token}, function () {
+                                callback(null, user);
+                            });
+                        }
+                    });
+                }
+            });
+        }
     }
 
     return UserService;

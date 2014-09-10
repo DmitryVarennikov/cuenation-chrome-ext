@@ -9,21 +9,30 @@ define(function () {
         var WINDOW_WIDTH = 630;
 
         this.show = function (status, message) {
-            var div = document.getElementById('flash-message');
-            div.setAttribute('class', status);
-            div.innerText = message;
-            div.style.display = 'block';
+            var messageEl = document.getElementById('flash-message');
+            messageEl.setAttribute('class', status);
+            messageEl.innerText = message;
+            messageEl.style.display = 'block';
 
-            // center message depending on its width
-            var leftOffset = WINDOW_WIDTH / 2 - Math.round(div.offsetWidth / 2);
-            div.style.left = leftOffset + 'px';
+            // center messageEl depending on its width
+            var leftOffset = WINDOW_WIDTH / 2 - Math.round(messageEl.offsetWidth / 2);
+            messageEl.style.left = leftOffset + 'px';
+            // and always display on top regardless of the scroll position
+            messageEl.style.top = document.body.scrollTop + 'px';
 
 
             setTimeout(function () {
-                div.innerText = '';
-                div.setAttribute('class', '');
-                div.style.display = 'none';
+                messageEl.innerText = '';
+                messageEl.setAttribute('class', '');
+                messageEl.style.display = 'none';
             }, 3000);
+
+            window.addEventListener('scroll', function () {
+                var messageEl = document.getElementById('flash-message');
+                if (messageEl.style.display !== 'none') {
+                    messageEl.style.top = document.body.scrollTop + 'px';
+                }
+            });
         }
     }
 
