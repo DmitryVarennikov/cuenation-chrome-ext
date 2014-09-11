@@ -1,8 +1,7 @@
 'use strict';
 
 require.config({
-    baseUrl: '../',
-    urlArgs: 'bust=' + (new Date()).getTime()
+    baseUrl: '../'
 });
 
 require([

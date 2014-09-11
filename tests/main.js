@@ -18,5 +18,4 @@ require(['tests/mocha'], function () {
         function () {
             mocha.run();
         });
-
 });
