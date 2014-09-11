@@ -26,7 +26,7 @@ require([
                 container = document.getElementsByClassName('page-content').item(0);
 
 
-            var cuesView = new CuesView(container, messageView, user, userCueService),
+            var cuesView = new CuesView(container, messageView, user, userCueService, userCueCategoryService),
                 categoriesView = new CategoriesView(container, messageView, user, cueCategoryService, userCueCategoryService),
                 router = new Router(cuesView, categoriesView),
                 nav = new TopNavigation(router);

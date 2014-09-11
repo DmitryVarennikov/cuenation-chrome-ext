@@ -209,7 +209,6 @@ define([
             });
         }
 
-        // @TODO: offset doesn't work correctly from the top
         function listenToCategoriesNavigation() {
             var forEach = Array.prototype.forEach,
                 navigationOffset = document.getElementById('menu').offsetHeight
