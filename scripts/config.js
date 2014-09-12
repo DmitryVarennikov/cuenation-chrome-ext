@@ -29,7 +29,9 @@ function getMode() {
     return mode;
 }
 
-define(conf[getMode()]);
+define(function () {
+    return conf[getMode()];
+});
 
 
 //define(function (callback) {
