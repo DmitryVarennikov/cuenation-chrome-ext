@@ -26,7 +26,7 @@ require([
 
 
             var cuesView = new CuesView(container, messageView, user, userCueService, userCueCategoryService),
-                categoriesView = new CategoriesView(container, messageView, user, cueCategoryService, userCueCategoryService),
+                categoriesView = new CategoriesView(container, messageView, user, userCueService, cueCategoryService, userCueCategoryService),
                 router = new Router(cuesView, categoriesView),
                 nav = new TopNavigation(router);
 

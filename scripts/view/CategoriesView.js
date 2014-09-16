@@ -2,16 +2,18 @@
 
 define([
     'scripts/view/View',
-    'scripts/view/Message'
-], function (View, MessageView) {
-    function CategoriesView(container, messageView, user, cueCategoryService, userCueCategoryService) {
+    'scripts/view/Message',
+    'scripts/view/Badge'
+], function (View, Message, Badge) {
+    function CategoriesView(container, messageView, user, userCueService, cueCategoryService, userCueCategoryService) {
         if (! (this instanceof CategoriesView)) {
             throw new Error('`this` must be an instance of view.CategoriesView');
         }
 
         View.call(this, container);
 
-        var categoriesView = this;
+        var categoriesView = this,
+            badge = new Badge(userCueService);
 
 
         window.addEventListener('scroll', function () {
@@ -199,10 +201,12 @@ define([
                     });
 
 
-                    messageView.show(MessageView.status.INFO, 'Saved');
+                    messageView.show(Message.status.INFO, 'Saved');
                     userCueCategoryService.put(user.token, ids, function (err) {
                         if (err) {
-                            messageView.show(MessageView.status.ERROR, err);
+                            messageView.show(Message.status.ERROR, err);
+                        } else {
+                            badge.render(user);
                         }
                     });
                 });
@@ -216,8 +220,6 @@ define([
 
             forEach.call(document.getElementById('categories-navigation').querySelectorAll('span'), function (el) {
                 el.addEventListener('click', function (e) {
-                    console.log(document.getElementById(el.dataset.id).offsetTop);
-
                     var yOffset = document.getElementById(el.dataset.id).offsetTop - navigationOffset;
                     window.scrollTo(0, yOffset);
                 });

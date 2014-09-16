@@ -2,8 +2,9 @@
 
 define([
     'scripts/view/View',
-    'scripts/view/Message'
-], function (View, MessageView) {
+    'scripts/view/Message',
+    'scripts/view/Badge'
+], function (View, Message, Badge) {
     function CuesView(container, messageView, user, userCueService, userCueCategoryService) {
         if (! (this instanceof CuesView)) {
             throw new Error('`this` must be an instance of view.CuesView');
@@ -11,7 +12,8 @@ define([
 
         View.call(this, container);
 
-        var cuesView = this;
+        var cuesView = this,
+            badge = new Badge(userCueService);
 
         /**
          * @param {domain.Cue[]} cues
@@ -86,7 +88,9 @@ define([
                     this.parentElement.remove();
                     userCueService.put(user.token, ids, function (err) {
                         if (err) {
-                            messageView.show(MessageView.status.ERROR, err);
+                            messageView.show(Message.status.ERROR, err);
+                        } else {
+                            badge.render(user);
                         }
                     });
                 });
