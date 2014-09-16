@@ -1,3 +1,4 @@
 /nbproject
 .idea
-scripts/main-build-*.js
+scripts/popup-build-*.js
+scripts/background-build-*.js

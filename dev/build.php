@@ -11,11 +11,12 @@ if (empty($argv[1]) || !file_exists($argv[1])) {
     exit;
 }
 
-$outputDir = rtrim($argv[1], DIRECTORY_SEPARATOR);
+$outputDir = rtrim($argv[1], '/');
 
-compressFiles();
+createBuild();
 copyFiles($outputDir);
 alterContent($outputDir);
+removeBuild();
 
 
 function isRoot()
@@ -41,51 +42,96 @@ function execute($cmd)
     }
 }
 
-function compressFiles()
+function createBuild()
 {
-    $cmd = 'r.js -o scripts/build.js';
+    $cmd = sprintf('r.js -o baseUrl=. name=scripts/popup out=scripts/popup-build-%s.js', date('Y-m-d'));
+    execute($cmd);
+
+    $cmd = sprintf(
+        'r.js -o baseUrl=. cssIn=styles/popup.css out=styles/popup-build-%s.css optimizeCss=standard', date('Y-m-d')
+    );
+    execute($cmd);
+
+    $cmd = sprintf('r.js -o baseUrl=. name=scripts/background out=scripts/background-build-%s.js', date('Y-m-d'));
     execute($cmd);
 }
 
 function copyFiles($outputDir)
 {
+    // images
     $cmd = sprintf('rm -rf %s/*', $outputDir);
     execute($cmd);
 
     $cmd = 'cp -r images ' . $outputDir;
     execute($cmd);
 
-    $cmd = 'cp -r styles ' . $outputDir;
+    // styles
+    $cmd = sprintf('mkdir %s/styles', $outputDir);
     execute($cmd);
 
+    $cmd = sprintf('cp styles/popup-build-%s.css %s/styles/', date('Y-m-d'), $outputDir);
+    execute($cmd);
+
+    // scripts
     $cmd = sprintf('mkdir %s/scripts', $outputDir);
     execute($cmd);
 
-    $cmd = sprintf('cp -r scripts/require.js %s/scripts/', $outputDir);
+    $cmd = sprintf('cp scripts/require.js %s/scripts/', $outputDir);
     execute($cmd);
 
-    $cmd = sprintf('cp -r scripts/main-build-%s.js %s/scripts/', date('Y-m-d'), $outputDir);
+    $cmd = sprintf('cp scripts/popup-build-%s.js %s/scripts/', date('Y-m-d'), $outputDir);
     execute($cmd);
 
-    $cmd = 'cp -r popup.html ' . $outputDir;
+    $cmd = sprintf('cp scripts/background-build-%s.js %s/scripts/', date('Y-m-d'), $outputDir);
     execute($cmd);
 
-    $cmd = 'cp -r manifest.json ' . $outputDir;
+    // the rest
+    $cmd = 'cp popup.html ' . $outputDir;
+    execute($cmd);
+
+    $cmd = 'cp background.html ' . $outputDir;
+    execute($cmd);
+
+    $cmd = 'cp manifest.json ' . $outputDir;
     execute($cmd);
 }
 
 function alterContent($outputDir)
 {
-    $content = file_get_contents($outputDir . DIRECTORY_SEPARATOR . 'popup.html');
-    $content = str_replace(
-        'data-main="scripts/main"', sprintf('data-main="scripts/main-build-%s"', date('Y-m-d')), $content
-    );
-    file_put_contents($outputDir . DIRECTORY_SEPARATOR . 'popup.html', $content);
+    $change = function ($filename, $searchContent, $replaceContent) {
+        $content = file_get_contents($filename);
+        $content = str_replace($searchContent, $replaceContent, $content);
+        file_put_contents($filename, $content);
+    };
 
 
-    $content = file_get_contents($outputDir . DIRECTORY_SEPARATOR . 'manifest.json');
-    $content = str_replace(
-        '"http://localhost:8080/*",', sprintf('', date('Y-m-d')), $content
+    $change(
+        $outputDir . '/popup.html', 'data-main="scripts/popup"',
+        sprintf('data-main="scripts/popup-build-%s"', date('Y-m-d'))
     );
-    file_put_contents($outputDir . DIRECTORY_SEPARATOR . 'manifest.json', $content);
+
+    $change(
+        $outputDir . '/popup.html', 'href="styles/popup.css"',
+        sprintf('href="styles/popup-build-%s.css"', date('Y-m-d'))
+    );
+
+    $change(
+        $outputDir . '/background.html', 'data-main="scripts/background"',
+        sprintf('data-main="scripts/background-build-%s"', date('Y-m-d'))
+    );
+
+    // let's put it aside as we can't properly test packed extensions locally
+//    $change($outputDir . '/manifest.json', '"http://localhost:8080/*",', '');
+}
+
+function removeBuild()
+{
+    $cmd = sprintf('rm scripts/popup-build-%s.js', date('Y-m-d'));
+    execute($cmd);
+
+    $cmd = sprintf('rm styles/popup-build-%s.css', date('Y-m-d'));
+    execute($cmd);
+
+    $cmd = sprintf('rm scripts/background-build-%s.js', date('Y-m-d'));
+    execute($cmd);
 }
