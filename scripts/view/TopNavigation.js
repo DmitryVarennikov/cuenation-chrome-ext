@@ -8,7 +8,7 @@ define(function () {
 
         var forEach = Array.prototype.forEach;
         // listen to navigation links click event
-        forEach.call(document.getElementById('menu').querySelectorAll('a'), function (el) {
+        forEach.call(document.getElementById('menu').querySelectorAll('a.inner'), function (el) {
             el.addEventListener('click', function (e) {
                 e.preventDefault();
 
