@@ -6,7 +6,7 @@ define([
     'scripts/view/Badge'
 ], function (View, Message, Badge) {
     function CuesView(container, messageView, user, userCueService, userCueCategoryService) {
-        if (! (this instanceof CuesView)) {
+        if (!(this instanceof CuesView)) {
             throw new Error('`this` must be an instance of view.CuesView');
         }
 
@@ -54,7 +54,7 @@ define([
                 return li;
             }
 
-            for (var i = 0; i < cues.length; i ++) {
+            for (var i = 0; i < cues.length; i++) {
                 cuesList.appendChild(createCuesListItem(cues[i]));
             }
 
@@ -78,14 +78,22 @@ define([
             }
         }
 
-        function listenToDelete() {
+        function listenToDelete(userCategories) {
             var forEach = Array.prototype.forEach;
 
             forEach.call(container.querySelectorAll('.delete'), function (el) {
                 el.addEventListener('click', function (e) {
                     var ids = [this.dataset.id];
 
-                    this.parentElement.remove();
+                    // upon clicking "dismiss" there are 2 strategies:
+                    // - either we simply remove a link
+                    // - or we re-render the whole layout (actually only in order not to duplicate "No new cues" message)
+                    if (1 === container.querySelectorAll('.delete').length) {
+                        render([], userCategories);
+                    } else {
+                        this.parentElement.remove();
+                    }
+
                     userCueService.put(user.token, ids, function (err) {
                         if (err) {
                             messageView.show(Message.status.ERROR, err);
@@ -106,7 +114,7 @@ define([
             function caller() {
                 if (typeof _cues != 'undefined' && typeof _userCategories != 'undefined') {
                     render(_cues, _userCategories);
-                    listenToDelete();
+                    listenToDelete(_userCategories);
                 }
             }
 
