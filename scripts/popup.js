@@ -5,20 +5,22 @@ require.config({
 });
 
 require([
-    'scripts/domain/User',
-    'scripts/core/Router',
-    'scripts/view/TopNavigation',
-    'scripts/view/Message',
-    'scripts/view/CuesView',
-    'scripts/view/CategoriesView',
-    'scripts/service/UserService',
-    'scripts/service/UserCueService',
-    'scripts/service/CueCategoryService',
-    'scripts/service/UserCueCategoryService'
-],
-    function (User, Router, TopNavigation, MessageView, CuesView, CategoriesView, UserService, UserCueService, CueCategoryService, UserCueCategoryService) {
+        'scripts/domain/User',
+        'scripts/core/Router',
+        'scripts/view/Version',
+        'scripts/view/TopNavigation',
+        'scripts/view/Message',
+        'scripts/view/CuesView',
+        'scripts/view/CategoriesView',
+        'scripts/service/UserService',
+        'scripts/service/UserCueService',
+        'scripts/service/CueCategoryService',
+        'scripts/service/UserCueCategoryService'
+    ],
+    function (User, Router, Version, TopNavigation, MessageView, CuesView, CategoriesView, UserService, UserCueService, CueCategoryService, UserCueCategoryService) {
         function start(err, user) {
-            var messageView = new MessageView(),
+            var versionView = new Version(),
+                messageView = new MessageView(),
                 userCueService = new UserCueService(),
                 cueCategoryService = new CueCategoryService(),
                 userCueCategoryService = new UserCueCategoryService(),
