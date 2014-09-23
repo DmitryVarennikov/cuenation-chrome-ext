@@ -1,6 +1,6 @@
 {
     "name":             "CueNation",
-    "version":          "0.2.0",
+    "version":          "0.2.1",
     "manifest_version": 2,
     "description":      "Let you subscribe and track new cue files of your desired radio shows on CueNation.com.",
     "icons":            {
