@@ -13,7 +13,7 @@ define(function () {
                 e.preventDefault();
 
                 // track clicks with GA
-                ga.trackEvent(this.getAttribute('href'));
+                ga.trackClickEvent(this.getAttribute('href'));
 
 
                 forEach.call(document.getElementById('menu').children, function (el) {

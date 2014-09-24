@@ -23,9 +23,11 @@ define(function (require) {
                 cueCategoryService.get(function (err, cueCategories) {
                     chai.assert.isNull(err, err);
                     chai.assert.isArray(cueCategories);
-                    chai.assert.instanceOf(cueCategories[0], CueCategory);
 
-                    for (var i = 0; i < 5; i ++) {
+                    // after json serialization CueCategory object becomes a plain hash
+//                    chai.assert.instanceOf(cueCategories[0], CueCategory);
+
+                    for (var i = 0; i < 5; i++) {
                         cueCategoryIds[i] = cueCategories[i].id;
                     }
 
@@ -67,9 +69,9 @@ define(function (require) {
 
                         var mustBeEmpty = cueCategoryIds;
                         var index;
-                        for (var i = 0; i < cueCategories.length; i ++) {
+                        for (var i = 0; i < cueCategories.length; i++) {
                             index = mustBeEmpty.indexOf(cueCategories[i].id);
-                            if (- 1 === index) {
+                            if (-1 === index) {
                                 chai.assert.ok(false);
                             } else {
                                 mustBeEmpty.splice(index, 1);
@@ -108,8 +110,8 @@ define(function (require) {
                         userCueService.get(token, 0, function (err, cues) {
                             chai.assert.isNull(err, err);
 
-                            for (var i = 0; i < cues.length; i ++) {
-                                if (cueIds.indexOf(cues[i].id) > - 1) {
+                            for (var i = 0; i < cues.length; i++) {
+                                if (cueIds.indexOf(cues[i].id) > -1) {
                                     chai.assert(false, 'We got a cue from server which we marked as viewed!');
                                 }
                             }

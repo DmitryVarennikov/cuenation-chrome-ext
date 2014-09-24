@@ -44,7 +44,7 @@ function execute($cmd)
 
 function createBuild()
 {
-    $cmd = sprintf('r.js -o baseUrl=. name=scripts/popup out=scripts/popup-build-%s.js', date('Y-m-d'));
+    $cmd = sprintf('r.js -o baseUrl=. name=scripts/popup out=scripts/popup-build-%s.js paths.google-analytics=empty:', date('Y-m-d'));
     execute($cmd);
 
     $cmd = sprintf(
@@ -52,7 +52,7 @@ function createBuild()
     );
     execute($cmd);
 
-    $cmd = sprintf('r.js -o baseUrl=. name=scripts/background out=scripts/background-build-%s.js', date('Y-m-d'));
+    $cmd = sprintf('r.js -o baseUrl=. name=scripts/background out=scripts/background-build-%s.js paths.google-analytics=empty:', date('Y-m-d'));
     execute($cmd);
 }
 

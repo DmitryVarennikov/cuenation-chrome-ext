@@ -1,7 +1,12 @@
 'use strict';
 
 require.config({
-    baseUrl: '..'
+    baseUrl: '..',
+    paths:   {
+        "google-analytics": [
+            'https://ssl.google-analytics.com/ga'
+        ]
+    }
 });
 
 require([

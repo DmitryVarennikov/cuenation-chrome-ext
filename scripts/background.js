@@ -1,7 +1,12 @@
 'use strict';
 
 require.config({
-    baseUrl: '..'
+    baseUrl: '..',
+    paths:   {
+        "google-analytics": [
+            'https://ssl.google-analytics.com/ga'
+        ]
+    }
 });
 
 require([
@@ -13,7 +18,7 @@ require([
     function (GA, UserService, UserCueService, Badge) {
         var ga = GA.getInstance();
         ga.trackPageview();
-        
+
 
         function start(err, user) {
             var userCueService = new UserCueService(),

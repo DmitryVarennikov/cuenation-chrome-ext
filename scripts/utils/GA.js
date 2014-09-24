@@ -5,19 +5,9 @@ function GA(mode) {
         throw new Error('`this` must be an instance of utils.GA');
     }
 
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = 'https://ssl.google-analytics.com/ga.js';
-
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
-
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-10762441-2']);
-
+    if ('prod' === mode) {
+        _gaq.push(['_setAccount', 'UA-10762441-2']);
+    }
 
     this.trackPageview = function () {
         if ('prod' === mode) {
@@ -25,7 +15,7 @@ function GA(mode) {
         }
     }
 
-    this.trackEvent = function (name) {
+    this.trackClickEvent = function (name) {
         if ('prod' === mode) {
             _gaq.push(['_trackEvent', name, 'clicked']);
         }
@@ -33,7 +23,7 @@ function GA(mode) {
 }
 
 
-define(['scripts/utils/mode'], function (mode) {
+define(['google-analytics', 'scripts/utils/mode'], function (_, mode) {
 
     var ga;
 
