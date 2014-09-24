@@ -1,8 +1,8 @@
 'use strict';
 
 define(function () {
-    function TopNavigation(router) {
-        if (! (this instanceof TopNavigation)) {
+    function TopNavigation(router, ga) {
+        if (!(this instanceof TopNavigation)) {
             throw new Error('`this` must be an instance of view.TopNavigation');
         }
 
@@ -11,6 +11,10 @@ define(function () {
         forEach.call(document.getElementById('menu').querySelectorAll('a.inner'), function (el) {
             el.addEventListener('click', function (e) {
                 e.preventDefault();
+
+                // track clicks with GA
+                ga.trackEvent(this.getAttribute('href'));
+
 
                 forEach.call(document.getElementById('menu').children, function (el) {
                     el.removeAttribute('class');

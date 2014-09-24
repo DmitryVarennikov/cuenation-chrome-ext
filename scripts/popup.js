@@ -5,6 +5,7 @@ require.config({
 });
 
 require([
+        'scripts/utils/GA',
         'scripts/domain/User',
         'scripts/core/Router',
         'scripts/view/Version',
@@ -17,8 +18,12 @@ require([
         'scripts/service/CueCategoryService',
         'scripts/service/UserCueCategoryService'
     ],
-    function (User, Router, Version, TopNavigation, MessageView, CuesView, CategoriesView, UserService, UserCueService, CueCategoryService, UserCueCategoryService) {
+    function (GA, User, Router, Version, TopNavigation, MessageView, CuesView, CategoriesView, UserService, UserCueService, CueCategoryService, UserCueCategoryService) {
         function start(err, user) {
+            var ga = GA.getInstance();
+            ga.trackPageview();
+
+
             var versionView = new Version(),
                 messageView = new MessageView(),
                 userCueService = new UserCueService(),
@@ -30,7 +35,7 @@ require([
             var cuesView = new CuesView(container, messageView, user, userCueService, userCueCategoryService),
                 categoriesView = new CategoriesView(container, messageView, user, userCueService, cueCategoryService, userCueCategoryService),
                 router = new Router(cuesView, categoriesView),
-                nav = new TopNavigation(router);
+                nav = new TopNavigation(router, ga);
 
 
             if (err) {

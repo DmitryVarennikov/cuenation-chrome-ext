@@ -5,11 +5,16 @@ require.config({
 });
 
 require([
-    'scripts/service/UserService',
-    'scripts/service/UserCueService',
-    'scripts/view/Badge'
-],
-    function (UserService, UserCueService, Badge) {
+        'scripts/utils/GA',
+        'scripts/service/UserService',
+        'scripts/service/UserCueService',
+        'scripts/view/Badge'
+    ],
+    function (GA, UserService, UserCueService, Badge) {
+        var ga = GA.getInstance();
+        ga.trackPageview();
+        
+
         function start(err, user) {
             var userCueService = new UserCueService(),
                 badge = new Badge(userCueService);
