@@ -26,9 +26,14 @@ define(['scripts/config', 'scripts/domain/CueCategory'], function (config, CueCa
                         callback(err);
                         // categories changes, let's re-cache them along with the new ETag
                     } else if (cueCategories.length) {
-                        setCache(cueCategories, eTag, function () {
+                        if (eTag) {
+                            setCache(cueCategories, eTag, function () {
+                                callback(null, cueCategories);
+                            });
+                        } else {
+                            console.error('ETag was not set');
                             callback(null, cueCategories);
-                        });
+                        }
                     } else {
                         // if categories didn't come then they didn't change, let's fetch them from cache
                         storage.get('cue-categories', function (obj) {
@@ -61,19 +66,21 @@ define(['scripts/config', 'scripts/domain/CueCategory'], function (config, CueCa
             }
 
             /**
-             * @param {String} eTag
+             * @param {String} ifNonMatch
              * @param {Function} callback({Error}, {domain.CueCategory[]}, {String})
              */
-            function get(eTag, callback) {
+            function get(ifNonMatch, callback) {
                 var req = new XMLHttpRequest();
                 req.open('GET', baseUrl + '/cue-categories', true);
-                req.setRequestHeader('If-None-Match', eTag);
+                req.setRequestHeader('If-None-Match', ifNonMatch);
                 req.onreadystatechange = function () {
                     if (4 === req.readyState) {
                         var cueCategories = [],
-                            eTag = req.getResponseHeader('ETag');
+                            eTag = null;
 
                         if (200 === req.status) {
+                            eTag = req.getResponseHeader('ETag');
+
                             var response = JSON.parse(req.response);
                             var cueCategoriesData = response._embedded && response._embedded.cueCategories || [];
                             for (var i = 0; i < cueCategoriesData.length; i++) {
