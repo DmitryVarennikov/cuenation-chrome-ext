@@ -2,7 +2,7 @@
 
 define(function () {
     function Badge(userCueService) {
-        if (! (this instanceof Badge)) {
+        if (!(this instanceof Badge)) {
             throw new Error('`this` must be an instance of view.Badge');
         }
 
@@ -12,7 +12,7 @@ define(function () {
                 if (err) {
                     text = 'err';
                 } else {
-                    text = (new String(pageable.totalElements)).toString();
+                    text = pageable.totalElements ? pageable.totalElements.toString() : '';
                 }
 
                 chrome.browserAction.setBadgeText({text: text});
