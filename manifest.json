@@ -1,23 +1,26 @@
 {
-    "name":                    "CueNation",
-    "version":                 "0.2.4",
-    "manifest_version":        2,
-    "description":             "Let you subscribe and track new cue files of your desired radio shows on CueNation.com.",
-    "icons":                   {
+    "name":                     "CueNation",
+    "version":                  "0.2.5",
+    "manifest_version":         2,
+    "description":              "Let you subscribe and track new cue files of your desired radio shows on CueNation.com.",
+    "icons":                    {
         "48": "images/icon48.png"
     },
-    "browser_action":          {
+    "browser_action":           {
         "default_icon":  "images/icon19.png",
         "default_title": "CueNation",
         "default_popup": "popup.html"
     },
-    "background":              {
+    "background":               {
         "page": "background.html"
     },
-    "permissions":             [
+    "permissions":              [
         "storage",
         "http://localhost:8080/*",
         "http://162.243.254.55:8080/*"
     ],
-    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
+    "content_security_policy":  "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+    "web_accessible_resources": [
+        "manifest.json"
+    ]
 }
