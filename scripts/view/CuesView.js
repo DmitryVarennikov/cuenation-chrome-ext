@@ -20,10 +20,14 @@ define([
          * @param {domain.CueCategory[]} userCategories
          */
         function render(cues, userCategories) {
-            var forEach = Array.prototype.forEach,
-                containerBody = document.createDocumentFragment(),
+            var containerBody = document.createDocumentFragment(),
+                dismissAllLink,
                 cuesList,
                 text;
+
+            dismissAllLink = document.createElement('div');
+            dismissAllLink.setAttribute('class', 'delete-all');
+            dismissAllLink.innerText = '[Dismiss all]';
 
             cuesList = document.createElement('ul');
             cuesList.setAttribute('id', 'recent-cues');
@@ -58,6 +62,7 @@ define([
                 cuesList.appendChild(createCuesListItem(cues[i]));
             }
 
+            containerBody.appendChild(dismissAllLink);
             containerBody.appendChild(cuesList);
 
 
@@ -75,12 +80,14 @@ define([
                 container.appendChild(text);
             } else {
                 container.appendChild(containerBody);
+                listenToDelete(userCategories);
             }
         }
 
         function listenToDelete(userCategories) {
             var forEach = Array.prototype.forEach;
 
+            // delete individual
             forEach.call(container.querySelectorAll('.delete'), function (el) {
                 el.addEventListener('click', function (e) {
                     var ids = [this.dataset.id];
@@ -103,6 +110,26 @@ define([
                     });
                 });
             });
+
+            // delete all
+            container.querySelector('.delete-all').addEventListener('click', function (e) {
+                var ids = [];
+
+                forEach.call(container.querySelectorAll('.delete'), function (el) {
+                    ids.push(el.dataset.id);
+                });
+
+                // re-render the whole layout (actually only in order not to duplicate "No new cues" message)
+                render([], userCategories);
+
+                userCueService.put(user.token, ids, function (err) {
+                    if (err) {
+                        messageView.show(Message.status.ERROR, err);
+                    } else {
+                        badge.render(user);
+                    }
+                });
+            });
         }
 
         this.render = function () {
@@ -114,7 +141,6 @@ define([
             function caller() {
                 if (typeof _cues != 'undefined' && typeof _userCategories != 'undefined') {
                     render(_cues, _userCategories);
-                    listenToDelete(_userCategories);
                 }
             }
 

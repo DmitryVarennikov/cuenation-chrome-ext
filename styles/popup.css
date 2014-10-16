@@ -133,6 +133,20 @@ ul {
     font-weight: bold;
 }
 
+.delete-all {
+    color: #AAA488;
+    font-weight: bold;
+    font-size: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.delete-all:hover {
+    color: #807A60;
+}
+
 #recent-cues {
     list-style: none inside url('../images/download.png');
     margin: 10px 0 0 0;
