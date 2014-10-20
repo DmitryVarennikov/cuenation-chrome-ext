@@ -16,8 +16,8 @@ require([
         'scripts/view/Badge'
     ],
     function (GA, UserService, UserCueService, Badge) {
-        var ga = GA.getInstance();
-        ga.trackPageview();
+//        var ga = GA.getInstance();
+//        ga.trackPageview();
 
 
         function start(err, user) {
