@@ -200,13 +200,25 @@ ul {
 }
 
 #top-controls-container-wrapper {
-    height: 40px;
+    height: 60px;
 }
 
 .top-controls-container-fixed {
     position: fixed;
     top: 43px;
     width: 571px;
+}
+
+#checked-filter-container {
+    float: left;
+    font-style: italic;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+#checked-filter-container input {
+    vertical-align: middle;
+    margin-left: 0;
 }
 
 button[name="save"] {
