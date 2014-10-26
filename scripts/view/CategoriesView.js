@@ -41,20 +41,29 @@ define([
          * @param {domain.CueCategory[]} categories
          * @returns {Array}
          */
-        function sliceCategoriesStartOnChar(letter, categories) {
+        function pickCategoriesWhichBelongToLetter(letter, categories) {
             var sliced = [];
 
-            function equals(searchable, given) {
-                if ('#' === searchable) {
+            function equals(char, name) {
+                if (!name.length) {
+                    return false;
+                }
+
+                if ('#' === char) {
                     var re = /[^a-z]/i;
-                    return re.test(given);
+                    return re.test(name[0]);
                 } else {
-                    return given.toUpperCase() === searchable;
+                    // name may start with "the" article, leave it out
+                    name = name.toLocaleLowerCase();
+                    if ('the' === name.substr(0, 3)) {
+                        name = name.substr(3).trim();
+                    }
+                    return name[0].toUpperCase() === char;
                 }
             }
 
             for (var i = 0, j = 0; i < categories.length; i++) {
-                if (equals(letter, categories[i].name[0])) {
+                if (equals(letter, categories[i].name)) {
                     sliced[j] = categories[i];
                     j++;
                 }
@@ -223,8 +232,8 @@ define([
             }
             // then go through it and create DOM
             alphabet.forEach(function (char) {
-                var slicedCategories = sliceCategoriesStartOnChar(char, categories),
-                    slicedUserCategories = sliceCategoriesStartOnChar(char, userCategories);
+                var slicedCategories = pickCategoriesWhichBelongToLetter(char, categories),
+                    slicedUserCategories = pickCategoriesWhichBelongToLetter(char, userCategories);
 
                 if (slicedCategories.length > 0) {
                     categoriesNavigationEl = createCategoriesNavigationElement(char);
